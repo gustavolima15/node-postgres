@@ -22,12 +22,22 @@ app.get('/', async (req, res) =>{
         // const query = 'update empresas set site = $1 where id = $2'
         // const params = ['www.cakewalk.com', 1]
 
-        const query = `
-            select e.id as empresaId, f.id as filialId, e.nome, f.pais, p.nome as funcionario 
+        const query = 
+            // select e.id as empresaId, f.id as filialId, e.nome, f.pais, p.nome as funcionario 
+            // from empresas e 
+            // join filiais f on e.id = f.empresa_id
+            // join pessoas p on e.id = p.empresa_id; 
+        
+            // ` select e.id as empresasId, f.id as filiaisId, e.nome, f.pais 
+            // from empresas e 
+            // left join filiais f on e.id = f.empresa_id;
+
+            // `
+            ` select e.id as empresasId, f.id as filiaisId, e.nome, f.pais 
             from empresas e 
-            join filiais f on e.id = f.empresa_id
-            join pessoas p on e.id = p.empresa_id; 
-        `
+            left join filiais f on e.id = f.empresa_id;
+
+            `
         const resultado = await poll.query(query);
         return res.json(resultado.rows);
     } catch (error) {
