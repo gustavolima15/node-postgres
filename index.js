@@ -33,10 +33,13 @@ app.get('/', async (req, res) =>{
             // left join filiais f on e.id = f.empresa_id;
 
             // `
-            ` select e.id as empresasId, f.id as filiaisId, e.nome, f.pais 
+            // ` select e.id as empresasId, f.id as filiaisId, e.nome, f.pais 
+            // from empresas e 
+            // left join filiais f on e.id = f.empresa_id;
+            // `
+            `select e.id as empresasId, f.id as filiaisId, e.nome, f.pais 
             from empresas e 
-            left join filiais f on e.id = f.empresa_id;
-
+            full join filiais f on e.id = f.empresa_id;
             `
         const resultado = await poll.query(query);
         return res.json(resultado.rows);
